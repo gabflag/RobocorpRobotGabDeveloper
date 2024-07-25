@@ -183,9 +183,13 @@ def solve_challenge():
     browser.configure(
         browser_engine="chromium",
         screenshot="only-on-failure",
-        headless=False,
+        headless=True,
     )
-    browser.configure_context(ignore_https_errors=True)
+
+    browser.configure_context(
+        ignore_https_errors=True,
+        bypass_csp=True,
+    )
 
     # Setting the parameters
     search_phrase = "trump and biden"
@@ -197,6 +201,7 @@ def solve_challenge():
     page = browser.context().new_page()
     page.set_default_timeout(120000)
     page.goto(f"https://apnews.com/", wait_until="domcontentloaded")
+
     try:
         page.wait_for_selector(
             selector="button.onetrust-accept-btn-handler",
@@ -207,6 +212,19 @@ def solve_challenge():
     except Exception as e:
         print("Cookie handling")
         print(f"ERRO: {e}")
+
+    try:
+        page.wait_for_selector(
+            selector="button.onetrust-accept-btn-handler",
+            timeout=120000,
+            state="visible",
+        )
+        page.click("button.onetrust-accept-btn-handler")
+    except Exception as e:
+        print("Cookie handling")
+        print(f"ERRO: {e}")
+
+    # <a title="Close" class="fancybox-item fancybox-close" href="javascript:;"></a>
 
     page.click("button.SearchOverlay-search-button")
     page.wait_for_timeout(timeout=2000)
@@ -254,3 +272,6 @@ def solve_challenge():
         ],
     )
     df.to_excel("output/RPAChallengeRobocorp.xlsx", index=False)
+
+
+solve_challenge()
