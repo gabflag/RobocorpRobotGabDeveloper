@@ -190,7 +190,7 @@ def solve_challenge():
     browser.configure(
         browser_engine="chromium",
         screenshot="only-on-failure",
-        headless=False,
+        headless=True,
     )
     browser.configure_context(
         ignore_https_errors=True,
