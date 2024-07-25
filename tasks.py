@@ -202,6 +202,18 @@ def solve_challenge():
 
     # Navigating to the search site
     page.goto(f"https://apnews.com/", wait_until="domcontentloaded")
+
+    try:
+        page.wait_for_selector(
+            selector="button.onetrust-accept-btn-handler",
+            timeout=60000,
+            state="visible",
+        )
+        page.click("button.onetrust-accept-btn-handler")
+    except Exception as e:
+        print("Cookie handling")
+        print(f"ERRO: {e}")
+
     page.click("button.SearchOverlay-search-button")
     page.wait_for_timeout(timeout=2000)
     page.fill("input.SearchOverlay-search-input", search_phrase)
