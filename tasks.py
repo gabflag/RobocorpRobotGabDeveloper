@@ -201,16 +201,15 @@ def solve_challenge():
     page.set_default_timeout(60000)
 
     # Navigating to the search site
-    page.goto(f"https://apnews.com/", wait_until="domcontentloaded")
+    page.goto(f"https://apnews.com/", wait_until="load")
 
     try:
-
         page.wait_for_selector(
-            selector="id:onetrust-accept-btn-handler",
+            selector="#onetrust-accept-btn-handler",
             timeout=60000,
             state="visible",
         )
-        page.click("id:onetrust-accept-btn-handler")
+        page.click("#onetrust-accept-btn-handler")
     except Exception as e:
         print("Cookie handling")
         print(f"ERRO: {e}")
