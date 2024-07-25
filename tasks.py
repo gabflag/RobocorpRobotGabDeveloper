@@ -190,7 +190,7 @@ def solve_challenge():
     browser.configure(
         browser_engine="chromium",
         screenshot="only-on-failure",
-        headless=True,
+        headless=False,
     )
     browser.configure_context(
         ignore_https_errors=True,
@@ -250,4 +250,4 @@ def solve_challenge():
     df.to_excel("output/RPAChallengeRobocorp.xlsx", index=False)
 
 
-solve_challenge()
+# solve_challenge()
