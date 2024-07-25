@@ -199,13 +199,13 @@ def solve_challenge():
 
     # Navigating to the search site
     page = browser.context().new_page()
-    page.set_default_timeout(120000)
+    page.set_default_timeout(60000)
     page.goto(f"https://apnews.com/", wait_until="domcontentloaded")
 
     try:
         page.wait_for_selector(
             selector="button.onetrust-accept-btn-handler",
-            timeout=120000,
+            timeout=60000,
             state="visible",
         )
         page.click("button.onetrust-accept-btn-handler")
@@ -215,16 +215,14 @@ def solve_challenge():
 
     try:
         page.wait_for_selector(
-            selector="button.onetrust-accept-btn-handler",
-            timeout=120000,
+            selector="a.fancybox-item.fancybox-close[title='Close']",
+            timeout=60000,
             state="visible",
         )
-        page.click("button.onetrust-accept-btn-handler")
+        page.click("a.fancybox-item.fancybox-close[title='Close']")
     except Exception as e:
         print("Cookie handling")
         print(f"ERRO: {e}")
-
-    # <a title="Close" class="fancybox-item fancybox-close" href="javascript:;"></a>
 
     page.click("button.SearchOverlay-search-button")
     page.wait_for_timeout(timeout=2000)
