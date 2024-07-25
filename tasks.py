@@ -1,7 +1,6 @@
 from robocorp import browser
 from robocorp.tasks import task
 from bs4 import BeautifulSoup
-import time
 import pandas as pd
 import requests
 import os

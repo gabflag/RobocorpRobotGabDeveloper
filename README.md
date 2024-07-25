@@ -1,61 +1,33 @@
-# Template: Python - Browser automation with Playwright
+# RPA Challenge 3.0 - News Data Extraction Bot
 
-This template leverages the new [Python framework](https://github.com/robocorp/robocorp), the [libraries](https://github.com/robocorp/robocorp/blob/master/docs/README.md#python-libraries) from to same project as well.
+## Description
 
-The template provides you with the basic structure of a Python project: logging out of the box and controlling your tasks without fiddling with the base Python stuff. The environment contains the most used libraries, so you do not have to start thinking about those right away. 
-With `robocorp-browser`, the browser automation uses Playwright without any extra steps. 
+This project is a solution for the RPA Challenge 3.0, which involves automating the process of extracting data from a news website. The solution was developed for the AP News site and uses the Robocorp library to automate navigation and information collection.
 
-👉 Other templates are available as well via our tooling and on our [Portal](https://robocorp.com/portal/tag/template)
+## Features
 
-## Running
+  - News Search: Automates the search for a specific term in news categories.
+  - Data Extraction: Collects title, date, description, link, image URL, and counts the number of occurrences of a search phrase in the title and description.
+  - Image Download: Downloads images associated with the news and saves them locally.
+  - Storage: Stores the extracted data in an Excel file, including the image file path.
 
-#### VS Code
-1. Get [Robocorp Code](https://robocorp.com/docs/developer-tools/visual-studio-code/extension-features) -extension for VS Code.
-1. You'll get an easy-to-use side panel and powerful command-palette commands for running, debugging, code completion, docs, etc.
+## Requirements
 
-#### Command line
+  - Python 3.8 or higher
+  - Main Libraries: robocorp, beautifulsoup4, requests, pandas, uuid
+  - Robocorp Cloud and Robocorp App Integration for execution and automation
 
-1. [Get RCC](https://github.com/robocorp/rcc?tab=readme-ov-file#getting-started)
-1. Use the command: `rcc run`
+## How to Use
 
-## Results
+Configure Robocorp to use the bot. Create a task in Robocloud and set the following parameters:
 
-🚀 After running the bot, check out the `log.html` under the `output` -folder.
+  - search_phrase: Search term for news.
+  - news_category/section/topic: News category or section (optional).
+  - number_of_months: Number of months to search for news (0 or 1 for the current month, 2 for the current and previous month, etc.).
+  - Run the task in Robocloud.
 
-## Dependencies
+After execution, you will find the Excel file RPAChallengeRobocorp.xlsx in the output folder, containing the extracted data. The downloaded images will also be available in the same folder.
 
-We strongly recommend getting familiar with adding your dependencies in [conda.yaml](conda.yaml) to control your Python dependencies and the whole Python environment for your automation.
+## Contribution
 
-<details>
-  <summary>🙋‍♂️ "Why not just pip install...?"</summary>
-
-Think of [conda.yaml](conda.yaml) as an equivalent of the requirements.txt, but much better. 👩‍💻 With `conda.yaml`, you are not just controlling your PyPI dependencies; you control the complete Python environment, which makes things repeatable and easy.
-
-👉 You will probably need to run your code on another machine quite soon, so by using `conda.yaml`:
-- You can avoid `Works on my machine` -cases
-- You do not need to manage Python installations on all the machines
-- You can control exactly which version of Python your automation will run on 
-  - You'll also control the pip version to avoid dep. resolution changes
-- No need for venv, pyenv, ... tooling and knowledge sharing inside your team.
-- Define dependencies in conda.yaml, let our tooling do the heavy lifting.
-- You get all the content of [conda-forge](https://prefix.dev/channels/conda-forge) without any extra tooling
-
-> Dive deeper with [these](https://github.com/robocorp/rcc/blob/master/docs/recipes.md#what-is-in-condayaml) resources.
-
-</details>
-<br/>
-
-> The full power of [rpaframework](https://robocorp.com/docs/python/rpa-framework) -libraries is also available on Python as a backup while we implement the new Python libraries.
-
-## What now?
-
-🚀 Now, go get'em
-
-Start writing Python and remember that the AI/LLM's out there are getting really good and creating Python code specifically.
-
-👉 Try out [Robocorp ReMark 💬](https://chat.robocorp.com)
-
-For more information, do not forget to check out the following:
-- [Robocorp Documentation -site](https://robocorp.com/docs)
-- [Portal for more examples](https://robocorp.com/portal)
-- Follow our main [robocorp -repository](https://github.com/robocorp/robocorp) as it is the main location where we developed the libraries and the framework.
+Contributions are welcome! If you encounter any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
