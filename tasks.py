@@ -179,17 +179,6 @@ def solve_challenge():
     """
     Solve the RPA challenge by extracting news data from AP News.
     """
-    # Browser configuration
-    browser.configure(
-        browser_engine="chromium",
-        screenshot="only-on-failure",
-        headless=True,
-    )
-
-    browser.configure_context(
-        ignore_https_errors=True,
-        bypass_csp=True,
-    )
 
     # Setting the parameters
     search_phrase = "trump and biden"
@@ -197,38 +186,27 @@ def solve_challenge():
     list_category = ["Subsections", "Stories"]
     months = 1
 
-    # Navigating to the search site
-    page = browser.context().new_page()
+    # Browser configuration
+    browser.configure(
+        browser_engine="chromium",
+        screenshot="only-on-failure",
+        headless=False,
+    )
+    browser.configure_context(
+        ignore_https_errors=True,
+    )
+    context = browser.context()
+    context.clear_cookies()
+    page = context.new_page()
     page.set_default_timeout(60000)
+
+    # Navigating to the search site
     page.goto(f"https://apnews.com/", wait_until="domcontentloaded")
-
-    try:
-        page.wait_for_selector(
-            selector="button.onetrust-accept-btn-handler",
-            timeout=60000,
-            state="visible",
-        )
-        page.click("button.onetrust-accept-btn-handler")
-    except Exception as e:
-        print("Cookie handling")
-        print(f"ERRO: {e}")
-
-    try:
-        page.wait_for_selector(
-            selector="a.fancybox-item.fancybox-close[title='Close']",
-            timeout=60000,
-            state="visible",
-        )
-        page.click("a.fancybox-item.fancybox-close[title='Close']")
-    except Exception as e:
-        print("Cookie handling")
-        print(f"ERRO: {e}")
-
     page.click("button.SearchOverlay-search-button")
     page.wait_for_timeout(timeout=2000)
     page.fill("input.SearchOverlay-search-input", search_phrase)
     page.click("button.SearchOverlay-search-submit")
-    page.wait_for_load_state(state="domcontentloaded", timeout=120000)
+    page.wait_for_load_state(state="domcontentloaded", timeout=60000)
 
     # Filters
     page.click("div.SearchResultsModule-filters-content")
