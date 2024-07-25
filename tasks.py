@@ -204,12 +204,13 @@ def solve_challenge():
     page.goto(f"https://apnews.com/", wait_until="domcontentloaded")
 
     try:
+
         page.wait_for_selector(
-            selector="button.onetrust-accept-btn-handler",
+            selector="id:onetrust-accept-btn-handler",
             timeout=60000,
             state="visible",
         )
-        page.click("button.onetrust-accept-btn-handler")
+        page.click("id:onetrust-accept-btn-handler")
     except Exception as e:
         print("Cookie handling")
         print(f"ERRO: {e}")
