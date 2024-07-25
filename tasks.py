@@ -180,7 +180,6 @@ def solve_challenge():
     """
     Solve the RPA challenge by extracting news data from AP News.
     """
-
     # Browser configuration
     browser.configure(
         browser_engine="chromium",
@@ -192,7 +191,7 @@ def solve_challenge():
     # Setting the parameters
     search_phrase = "trump and biden"
     # list_category = ['Live Blogs', 'Photo Galleries', 'Sections', 'Stories', 'Subsections', 'Videos', 'Featured Articles']
-    list_category = ["Live Blogs"]
+    list_category = ["Subsections", "Stories"]
     months = 1
 
     # Navigating to the search site
