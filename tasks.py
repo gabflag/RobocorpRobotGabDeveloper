@@ -197,18 +197,21 @@ def solve_challenge():
     page = browser.context().new_page()
     page.set_default_timeout(120000)
     page.goto(f"https://apnews.com/", wait_until="domcontentloaded")
+    try:
+        page.wait_for_selector(
+            selector="button.onetrust-accept-btn-handler",
+            timeout=120000,
+            state="visible",
+        )
+        page.click("button.onetrust-accept-btn-handler")
+    except Exception as e:
+        print("Cookie handling")
+        print(f"ERRO: {e}")
 
     page.click("button.SearchOverlay-search-button")
     page.wait_for_timeout(timeout=2000)
     page.fill("input.SearchOverlay-search-input", search_phrase)
-
-    try:
-        page.click("button.SearchOverlay-search-submit")
-    except Exception as e:
-        ## Cookies treatment
-        page.click("button.onetrust-accept-btn-handler")
-        page.click("button.SearchOverlay-search-submit")
-
+    page.click("button.SearchOverlay-search-submit")
     page.wait_for_load_state(state="domcontentloaded", timeout=120000)
 
     # Filters
