@@ -9,7 +9,17 @@ import uuid
 
 
 def CountSearchPhrase(title, description, search_phrase):
+    """
+    Counts the number of occurrences of a search phrase in the article's title and description.
 
+    Parameters:
+        title (str): The title of the article.
+        description (str): The description of the article.
+        search_phrase (str): The search phrase to count.
+
+    Returns:
+        int: The number of occurrences of the search phrase in the title and description.
+    """
     combined_text = title + description
     count = combined_text.lower().count(search_phrase.lower())
     return count
@@ -79,7 +89,7 @@ def GetPublishedData(url):
         with open("data_log_erro_page.html", "w", encoding="utf-8") as file:
             file.write(page_html)
 
-        print("Conteúdo da página salvo em 'data.html'")
+        print("Page content saved in 'data.html'")
     finally:
         page.close()
 
@@ -171,21 +181,21 @@ def solve_challenge():
     Solve the RPA challenge by extracting news data from AP News.
     """
 
-    # Configuração do navegador
+    # Browser configuration
     browser.configure(
         browser_engine="chromium",
         screenshot="only-on-failure",
-        headless=False,
+        headless=True,
     )
     browser.configure_context(ignore_https_errors=True)
 
-    # Definindo os parâmetros
+    # Setting the parameters
     search_phrase = "trump and biden"
     # list_category = ['Live Blogs', 'Photo Galleries', 'Sections', 'Stories', 'Subsections', 'Videos', 'Featured Articles']
     list_category = ["Live Blogs"]
     months = 1
 
-    # Navegando para o site de busca
+    # Navigating to the search site
     page = browser.context().new_page()
     page.set_default_timeout(120000)
     page.goto(f"https://apnews.com/", wait_until="domcontentloaded")
@@ -203,7 +213,7 @@ def solve_challenge():
             page.wait_for_selector(filter_selector, state="visible", timeout=10000)
             page.click(filter_selector)
         except Exception as e:
-            print(f"Não foi possível clicar no filtro {category}: {e}")
+            print(f"Unable to click on filter {category}: {e}")
 
     page.press("div.SearchResultsModule-filters-title", "Enter")
 
@@ -235,6 +245,3 @@ def solve_challenge():
         ],
     )
     df.to_excel("output/RPAChallengeRobocorp.xlsx", index=False)
-
-
-# solve_challenge()
